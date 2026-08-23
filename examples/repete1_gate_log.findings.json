@@ -1,0 +1,238 @@
+{
+  "final_k": 66,
+  "findings": [
+    {
+      "level": "warning",
+      "line": 335,
+      "message": "class ('GATE',) spends budget but K did not move from 0",
+      "rule": "R06",
+      "section": "\u00a74"
+    },
+    {
+      "level": "warning",
+      "line": 440,
+      "message": "class ('GATE', 'EDGE') spends budget but K did not move from 0",
+      "rule": "R06",
+      "section": "\u00a75"
+    },
+    {
+      "level": "warning",
+      "line": 607,
+      "message": "class ('GATE',) spends budget but K did not move from 0",
+      "rule": "R06",
+      "section": "\u00a77"
+    },
+    {
+      "level": "warning",
+      "line": 712,
+      "message": "class ('EDGE',) spends budget but K did not move from 0",
+      "rule": "R06",
+      "section": "\u00a78"
+    },
+    {
+      "level": "warning",
+      "line": 808,
+      "message": "class ('EDGE', 'GATE') spends budget but K did not move from 0",
+      "rule": "R06",
+      "section": "\u00a79"
+    },
+    {
+      "level": "warning",
+      "line": 889,
+      "message": "class ('EDGE', 'GATE') spends budget but K did not move from 0",
+      "rule": "R06",
+      "section": "\u00a710"
+    },
+    {
+      "level": "warning",
+      "line": 1029,
+      "message": "+3 from 0 is 3, not 48 as declared",
+      "rule": "R05",
+      "section": "\u00a711"
+    },
+    {
+      "level": "warning",
+      "line": 1198,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a712"
+    },
+    {
+      "level": "info",
+      "line": 1590,
+      "message": "K resynchronised to 54 (+3) without declared arms",
+      "rule": "R05",
+      "section": "\u00a715"
+    },
+    {
+      "level": "info",
+      "line": 2420,
+      "message": "tally is not in the `**N trials, zero adopted` form the consumer regex reads",
+      "rule": "R08",
+      "section": "\u00a718"
+    },
+    {
+      "level": "info",
+      "line": 2675,
+      "message": "tally is not in the `**N trials, zero adopted` form the consumer regex reads",
+      "rule": "R08",
+      "section": "\u00a720"
+    },
+    {
+      "level": "warning",
+      "line": 2690,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a721"
+    },
+    {
+      "level": "warning",
+      "line": 2808,
+      "message": "numbering gap: \u00a722..\u00a722 never written",
+      "rule": "R02",
+      "section": "\u00a723"
+    },
+    {
+      "level": "warning",
+      "line": 2808,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a723"
+    },
+    {
+      "level": "warning",
+      "line": 3018,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a724"
+    },
+    {
+      "level": "warning",
+      "line": 3131,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a725"
+    },
+    {
+      "level": "info",
+      "line": 3236,
+      "message": "tally is not in the `**N trials, zero adopted` form the consumer regex reads",
+      "rule": "R08",
+      "section": "\u00a725"
+    },
+    {
+      "level": "warning",
+      "line": 3244,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a726"
+    },
+    {
+      "level": "info",
+      "line": 3320,
+      "message": "tally is not in the `**N trials, zero adopted` form the consumer regex reads",
+      "rule": "R08",
+      "section": "\u00a726"
+    },
+    {
+      "level": "warning",
+      "line": 3330,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a727"
+    },
+    {
+      "level": "warning",
+      "line": 3399,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a728"
+    },
+    {
+      "level": "warning",
+      "line": 3569,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a729"
+    },
+    {
+      "level": "warning",
+      "line": 3681,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a730"
+    },
+    {
+      "level": "warning",
+      "line": 3782,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a731"
+    },
+    {
+      "level": "warning",
+      "line": 3857,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a732"
+    },
+    {
+      "level": "warning",
+      "line": 3954,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a733"
+    },
+    {
+      "level": "warning",
+      "line": 4052,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a734"
+    },
+    {
+      "level": "warning",
+      "line": 4134,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a735"
+    },
+    {
+      "level": "warning",
+      "line": 4246,
+      "message": "no claim class declared (heading or `Claim class:` line)",
+      "rule": "R03",
+      "section": "\u00a736"
+    },
+    {
+      "level": "info",
+      "line": 4924,
+      "message": "tally is not in the `**N trials, zero adopted` form the consumer regex reads",
+      "rule": "R08",
+      "section": "\u00a743"
+    },
+    {
+      "level": "warning",
+      "line": 5457,
+      "message": "claim class 'ENABLEMENT' is not in the enum ['CAPACITY', 'COMPONENT', 'CONTROL', 'DATA COLLECTION', 'DIAGNOSTIC', 'EDGE', 'EXPERIMENT', 'GATE', 'GOVERNANCE', 'INFRA', 'INTAKE', 'MEASUREMENT', 'METHOD']; body declares ('GOVERNANCE',)",
+      "rule": "R04",
+      "section": "\u00a754"
+    },
+    {
+      "level": "info",
+      "line": 5860,
+      "message": "self-reported protocol deviation (recorded, never suppressed)",
+      "rule": "R13",
+      "section": "\u00a758"
+    },
+    {
+      "level": "info",
+      "line": 5864,
+      "message": "self-reported protocol deviation (recorded, never suppressed)",
+      "rule": "R13",
+      "section": "\u00a758"
+    }
+  ],
+  "mismatch": [],
+  "registry_k": 66
+}

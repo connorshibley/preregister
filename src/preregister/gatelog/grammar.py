@@ -31,13 +31,13 @@ H2 = re.compile(r"^## §(?P<n>\d+)(?P<sfx>[a-z]?)(?: (?P<part>RESULTS?|STATUS))?
                 re.MULTILINE)
 #: Era B: the class leads the title. `EDGE pre-registration:` and
 #: `EDGE (…) + EXPERIMENT registration:` both count.
-H2_CLASS = re.compile(r"^(?P<cls>[A-Z][A-Z /+()\-,' ]*?)(?: pre-registration| registration)?:\s")
+H2_CLASS = re.compile(r"^(?P<cls>[A-Z][A-Z\-]*(?: \([^)]*\))?(?: \+ [A-Z][A-Z\-]*(?: \([^)]*\))?)*)(?: pre-registration| registration)?:\s")
 H3_PART = re.compile(r"^### §(?P<n>\d+)(?P<sfx>[a-z]?)(?:'s)? ?(?P<part>RESULTS?|STATUS|addendum|tally|implementation note)?\b",
                      re.MULTILINE)
 ANY_HEADING = re.compile(r"^#{2,3} ", re.MULTILINE)
 
 # ---- class declarations in the body ----------------------------------------
-CLAIM_CLASS = re.compile(r"\bClaim class: (?P<cls>[^*]+?)(?:\.\*\*|\*\*|\. |, )", re.S)
+CLAIM_CLASS = re.compile(r"\bClaim class: (?P<cls>[^*]+?)(?:\.\*\*|\*\*|\. )", re.S)
 TYPE_LINE = re.compile(r"^\*\*Type: (?P<cls>[^*]+?)(?:\.\*\*|\*\*|\.)", re.MULTILINE)
 CLAIM_TYPE = re.compile(r"\bCLAIM TYPE: (?P<cls>EDGE|CAPACITY)\b")
 BARE_CLASS = re.compile(r"^\*\*(?P<cls>INFRA CLOSE-OUT|RESEARCH INTAKE|INFRA|MEASUREMENT|GOVERNANCE|CONTROL|METHOD)\b[^*\n]*?K (?:stays|unchanged)",
