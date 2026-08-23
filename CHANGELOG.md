@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.3 — 2026-08-23
+
+**Fix:** `Comparison.describe()` had dropped the per-arm sample sizes that
+the source implementation printed. "INCONCLUSIVE at n=12" and "INCONCLUSIVE
+at n=1200" are different statements; a reader who cannot see which one this
+is cannot weigh it. Caught by diffing the extracted output against the
+original rather than trusting that a lift was faithful.
+
 ## 0.1.2 — 2026-08-23
 
 **Fix:** the parser read K statements and tallies inside quotations as

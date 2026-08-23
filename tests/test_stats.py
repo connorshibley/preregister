@@ -187,3 +187,10 @@ def test_concentration_with_no_winners_is_zero_not_an_error() -> None:
 def test_pf_ex_topn_is_infinite_when_nothing_remains_to_lose() -> None:
     assert stats.concentration([5.0, 4.0, 3.0, 2.0]).pf_ex_topn == float("inf")
     assert stats.concentration([5.0, 4.0, 3.0, 2.0, -1.0], n=1).pf_ex_topn == 9.0
+
+
+def test_describe_reports_the_sample_size_of_each_arm() -> None:
+    """Dropped in the first extraction and restored in 0.1.3. A verdict
+    without its n is not readable evidence."""
+    c = stats.compare(_B, _C, resamples=200)
+    assert f"(n={len(_C)})" in c.describe() and f"(n={len(_B)})" in c.describe()

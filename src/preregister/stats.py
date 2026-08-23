@@ -85,8 +85,12 @@ class Comparison:
     def describe(self) -> str:
         pct = (1 - self.alpha) * 100
         u = self.unit
-        return (f"{self.verdict}: candidate {u}{self.candidate_mean:+.2f}/{self.per} vs "
-                f"baseline {u}{self.baseline_mean:+.2f}/{self.per}; diff {u}{self.diff:+.2f}, "
+        # The sample sizes are not decoration: "INCONCLUSIVE" over n=12 and
+        # over n=1200 are different statements, and a reader who cannot see
+        # which one this is cannot weigh it.
+        return (f"{self.verdict}: candidate {u}{self.candidate_mean:+.2f}/{self.per} "
+                f"(n={self.n_candidate}) vs baseline {u}{self.baseline_mean:+.2f}/{self.per} "
+                f"(n={self.n_baseline}); diff {u}{self.diff:+.2f}, "
                 f"{pct:.2f}% CI [{u}{self.ci_low:+.2f}, {u}{self.ci_high:+.2f}] "
                 f"(Bonferroni K={self.n_comparisons})")
 
