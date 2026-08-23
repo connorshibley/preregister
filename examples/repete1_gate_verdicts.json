@@ -1,0 +1,89 @@
+{
+ "_comment": [
+  "E5 (2026-08-13): the CANONICAL current-verdict summary, one entry per",
+  "strategy, maintained alongside the append-only gate log. This file",
+  "exists because dashboard._evidence_section used to parse the log's",
+  "markdown tables last-row-wins and hardcode a 48-trial-era paragraph —",
+  "it served meanrev's REVERTED §5 PASS on the public page for weeks",
+  "while config.yaml said the strategy was killed. The dashboard now",
+  "renders THIS file, and tests/test_gate_verdicts.py pins it against",
+  "config.yaml (enabled flags), the gate log's own final tally line, and",
+  "the cited sections' existence — so drift fails the build instead of",
+  "lying on the page. Update it in the same commit as any new verdict."
+ ],
+ "updated": "2026-08-21",
+ "trials_registered": 66,
+ "strategies_adopted": 0,
+ "verdicts": {
+  "ma_crossover": {
+   "latest_section": "§20",
+   "verdict": "FAIL",
+   "oos_return_pct": -12.0,
+   "profit_factor": 0.0,
+   "n_trades": 17,
+   "cost_multiple": -18.05,
+   "enabled": false,
+   "note": "screened 21-market universe; negative gross edge"
+  },
+  "tsmom": {
+   "latest_section": "§20",
+   "verdict": "FAIL",
+   "oos_return_pct": -1.87,
+   "profit_factor": 0.814,
+   "n_trades": 19,
+   "cost_multiple": -1.41,
+   "enabled": false,
+   "note": "the config's old 'PASS 2026-07-15' was an un-voided equities result, caught in §20"
+  },
+  "xsmom": {
+   "latest_section": "§20",
+   "verdict": "FAIL",
+   "oos_return_pct": 1.63,
+   "profit_factor": 1.087,
+   "n_trades": 25,
+   "cost_multiple": 2.67,
+   "enabled": true,
+   "note": "enabled DELIBERATELY as a known non-edge to exercise the live pipeline (§32); decay-monitored, review at 20 closed trades"
+  },
+  "xsrev": {
+   "latest_section": "§20",
+   "verdict": "FAIL",
+   "oos_return_pct": -0.37,
+   "profit_factor": 0.986,
+   "n_trades": 49,
+   "cost_multiple": 0.82,
+   "enabled": false,
+   "note": "short-horizon reversal decays faster than any tested rebalance (§15, §20)"
+  },
+  "donchian": {
+   "latest_section": "§37",
+   "verdict": "REJECT",
+   "oos_return_pct": 65.93,
+   "profit_factor": 3.379,
+   "n_trades": 36,
+   "cost_multiple": 34.26,
+   "enabled": false,
+   "note": "cleared every deterministic clause — and 118.5% of net P&L was ONE trade (ZEC +939%); rejected by the §37 concentration clause. Median trade lost 8.11%"
+  },
+  "meanrev": {
+   "latest_section": "§18",
+   "verdict": "REJECT",
+   "oos_return_pct": -9.9,
+   "profit_factor": 0.553,
+   "n_trades": null,
+   "cost_multiple": null,
+   "enabled": false,
+   "note": "§18 kill criterion fired — out of paper; the §5 PASS was REVERTED in §7 (measured on a universe produced by a bug)"
+  },
+  "mvrv_cycle": {
+   "latest_section": "§58",
+   "verdict": "FAIL",
+   "oos_return_pct": 0.0,
+   "profit_factor": 1.0,
+   "n_trades": 3,
+   "cost_multiple": null,
+   "enabled": false,
+   "note": "§51 EDGE FAIL, then enabled as EXPERIMENT §51; DISABLED 2026-08-21 by OWNER OVERRIDE after §58's ablation — the ensemble ran 8.75pp worse than xsmom alone while this strategy alone was flat (0.00%, PF 1.00, n=3). NO K1-K4 kill criterion fired; the override is recorded as an owner decision on inconclusive evidence (ensemble-vs-xsmom CI includes zero). Open BTC position left to its own exit rule under the ownership rule."
+  }
+ }
+}

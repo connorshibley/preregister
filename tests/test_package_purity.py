@@ -18,7 +18,10 @@ SRC = os.path.join(ROOT, "src", "preregister")
 #: Names from the source repo that must never appear in this package. If one
 #: does, the extraction leaked a seam instead of cutting it.
 FORBIDDEN_NAMES = ("repete1", "backtest", "fills", "judge_model", "allocator",
-                   "ledger", "venue", "ccxt", "strategies")
+                   "venue", "ccxt", "strategies", "simulate_ensemble", "PaperVenue")
+# ("ledger" is deliberately NOT here: the K budget IS a ledger, and the word
+#  is the right one for it. The list is module and class names that only
+#  mean something inside the bot.)
 
 
 def _modules() -> list[str]:
