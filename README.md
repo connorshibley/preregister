@@ -3,6 +3,17 @@
 Pre-registration, multiple-comparison budgets and null ladders — as code,
 not as a checklist. Pure Python 3.12, no dependencies.
 
+## Install
+
+Not on PyPI yet — install the release wheel (hash-pinnable, so it works under
+`pip install --require-hashes`):
+
+```bash
+pip install https://github.com/connorshibley/preregister/releases/download/v0.1.3/preregister-0.1.3-py3-none-any.whl
+```
+
+Python 3.12+, no dependencies. **[Quickstart →](docs/quickstart.md)**
+
 ## Where it comes from
 
 A cryptocurrency paper-trading bot ran **66 pre-registered trials** over two
@@ -63,13 +74,24 @@ python -m preregister.gatelog examples/repete1_gate_log.md \
   --registry examples/repete1_gate_verdicts.json
 ```
 
-**Zero errors, 25 warnings, 8 info** — and the warnings are the interesting
-part. Sixteen early sections predate the claim-class convention. Five tally
+**Zero errors, 25 warnings, 8 info** on the vendored snapshot (the live log,
+which has grown since, reports 26 warnings) — and the warnings are the
+interesting part. Sixteen early sections predate the claim-class convention. Five tally
 lines are in a form the bot's own consumer regex cannot read. `§54` uses a
 class word (`ENABLEMENT`) that was never in the enum. `§22` was numbered and
 never written. `§58` self-reports that its spec was transcribed after the
 first smoke run. Every one of those was in the log, in prose, invisible to
 every test the bot had.
+
+## Documentation
+
+| | |
+|---|---|
+| [Quickstart](docs/quickstart.md) | Ten minutes to a linted log. Install, template, lock, CI, the R01–R14 rule table. |
+| [Methodology](docs/methodology.md) | Claim classes, picking K, what INCONCLUSIVE means next, **when not to use this**. |
+| [The claim audit](docs/audit.md) | The rubric for reviewing someone else's result. Five gates, four verdict tiers. |
+| [Trading pack](docs/audit-trading.md) | Domain specifics: delisting fractions, Deflated Sharpe, PBO, the cost stress arm. |
+| [The protocol, verbatim](docs/audit-protocol-verbatim.md) | The audit as it was actually run, unedited, and the verdict it returned. |
 
 ## The rest
 
