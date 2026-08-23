@@ -72,6 +72,24 @@ def _line_of(text: str, pos: int) -> int:
     return text.count("\n", 0, pos) + 1
 
 
+def _mask_quotations(body: str) -> str:
+    """Blank out inline code spans and double-quoted phrases, preserving every
+    character position.
+
+    A log that discusses its own history QUOTES earlier K statements — "the
+    count is reconstructible only from §11's 'Cumulative K after this run:
+    48'" is prose about a declaration, not a declaration. Found 2026-08-23
+    when a section citing an older one made the linter report that K had been
+    restated as 48 inside a section running 66 -> 66.
+    """
+    out = list(body)
+    for m in re.finditer(r"`[^`\n]*`|\"[^\"\n]*\"|“[^”\n]*”", body):
+        for i in range(m.start(), m.end()):
+            if out[i] != "\n":
+                out[i] = " "
+    return "".join(out)
+
+
 def _classes_in(body: str, heading_title: str, era: str) -> tuple[str | None, list[str]]:
     """(class phrase from the heading if any, all declared class tokens)."""
     found: list[str] = []
@@ -100,7 +118,8 @@ def _classes_in(body: str, heading_title: str, era: str) -> tuple[str | None, li
     return heading_cls, found
 
 
-def _k_decls(body: str, offset_line: int) -> list[KDeclaration]:
+def _k_decls(raw_body: str, offset_line: int) -> list[KDeclaration]:
+    body = _mask_quotations(raw_body)
     out: list[KDeclaration] = []
     for m in g.K_TRANSITION.finditer(body):
         out.append(KDeclaration("transition", int(m["before"]), int(m["after"]), None,
@@ -132,7 +151,8 @@ def _k_decls(body: str, offset_line: int) -> list[KDeclaration]:
     return sorted(out, key=lambda d: d.line)
 
 
-def _tallies(body: str, offset_line: int) -> list[Tally]:
+def _tallies(raw_body: str, offset_line: int) -> list[Tally]:
+    body = _mask_quotations(raw_body)
     out: list[Tally] = []
     seen: set[int] = set()
     for m in g.TALLY_STRICT.finditer(body):

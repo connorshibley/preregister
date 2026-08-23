@@ -173,3 +173,26 @@ def test_cli_exit_codes(tmp_path: "pytest.TempPathFactory") -> None:
         f.write("\n## §4 — CONTROL: spends\n\n**Claim class: CONTROL. K: 2 → 9.**\n")
     r = run("--lock", lockp, "--json")
     assert r.returncode == 1 and '"rule": "R06"' in r.stdout
+
+
+def test_a_quoted_k_statement_is_prose_not_a_declaration() -> None:
+    """Found on the real log 2026-08-23: a section citing an earlier one —
+    `the count is reconstructible only from §11's "Cumulative K: 48"` —
+    was read as restating K, and reported as an error inside a section that
+    had not moved K at all. A log that discusses its own history quotes it."""
+    text = GOOD_B + (
+        '\n## §4 — CONTROL: discussing history\n\n'
+        '**Claim class: CONTROL. K unchanged: 2.**\n'
+        'Only reconstructible from §1\'s "Cumulative K after this run: 48",\n'
+        'and `**9 trials, zero adopted**` is what §9 said at the time.\n')
+    assert _levels(text, "R05") == []
+    assert _levels(text, "R07") == [], "a quoted tally is not this section's tally"
+    assert final_k(parse(text)) == 2
+
+
+def test_masking_does_not_swallow_a_real_declaration_on_the_same_line() -> None:
+    """The negative control: masking must remove quotations, not lines."""
+    text = ('## §1 — EDGE: x\n\n**Claim class: EDGE. K: 0 → 2. Committed BEFORE y.**\n'
+            'The `old note` said something. **2 trials, zero adopted.**\n')
+    assert final_k(parse(text)) == 2
+    assert _levels(text, "R05") == [] and _levels(text, "R07") == []

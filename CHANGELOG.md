@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.2 — 2026-08-23
+
+**Fix:** the parser read K statements and tallies inside quotations as
+declarations. A log that discusses its own history quotes earlier sections,
+and one that did was reported as restating K at 48 inside a section running
+66 -> 66. Inline code spans and quoted phrases are now masked before the K
+and tally patterns run, positions preserved. Found by running the linter
+against a live log rather than the vendored snapshot.
+
 ## 0.1.1 — 2026-08-23
 
 Publishing only; no code change. Adds Trusted Publishing (OIDC) so releases

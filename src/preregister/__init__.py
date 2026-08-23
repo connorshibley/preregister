@@ -10,4 +10,4 @@ makes the parts of that discipline that were prose into arithmetic.
 Importing it opens no file, reads no environment variable and touches no
 network; `tests/test_package_purity.py` pins that.
 """
-__version__ = "0.1.1"
+__version__ = "0.1.2"
