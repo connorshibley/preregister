@@ -1,0 +1,7 @@
+preregister
+Copyright 2026 Connor Shibley
+
+Extracted from connorshibley/repete1-bot (Apache-2.0), a cryptocurrency
+paper-trading bot whose gate log records 66 pre-registered trials and zero
+adoptions. The statistics, budget accounting and null-ladder code here were
+lifted from that repo; the strategies were not.

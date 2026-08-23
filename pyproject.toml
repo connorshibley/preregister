@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "preregister"
+version = "0.1.0"
+description = "Pre-registration, multiple-comparison budgets and null ladders, as code"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+authors = [{ name = "Connor Shibley" }]
+# No runtime dependencies, on purpose. A methodology package that needs a
+# numerical stack to say "inconclusive" has already made a claim about the
+# environment it runs in.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov", "ruff", "mypy", "build"]
+
+[project.urls]
+Source = "https://github.com/connorshibley/preregister"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/preregister"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+# Bug-class rules only; style is not a correctness property.
+select = ["E", "F", "B", "W"]
+ignore = ["E501"]  # prose-heavy docstrings run long on purpose
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

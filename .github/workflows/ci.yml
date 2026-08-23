@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # CPython validates a cached .pyc on (mtime, size) at one-second resolution.
+  # A test that rewrites a file and re-imports it can be handed stale bytecode
+  # and report a broken guard as verified. Measured in the source repo.
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  secrets-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full HISTORY: a key committed then deleted is still a leak
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: pip install -e .[dev]
+      - name: Lint (ruff, bug-class rules only)
+        run: ruff check src/ tests/ examples/
+      - name: Type check (mypy --strict)
+        run: mypy --strict src/preregister
+      - name: Tests
+        # Coverage floor is set from a MEASURED number and may only move up.
+        run: pytest --cov=preregister --cov-report=term-missing --cov-fail-under=0
+      - name: The wheel installs and imports outside the repo
+        # The zero-coupling proof: a clean interpreter, no src/ on the path.
+        run: |
+          python -m build
+          python -m venv /tmp/clean && /tmp/clean/bin/pip install -q dist/*.whl
+          cd /tmp && /tmp/clean/bin/python -c "import preregister; print(preregister.__version__)"
