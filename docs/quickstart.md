@@ -140,8 +140,7 @@ looks like in practice.
   negative control was wrong on its first run and fired on a pipeline with no
   treatment in it.
 - [`examples/repete1_gate_log.md`](../examples/repete1_gate_log.md) — a real
-  log, 58 sections, 66 trials, zero adoptions. Lints with **0 errors and 25
-  warnings**, and the warnings are the interesting part.
+  log, 58 sections, 66 trials, zero adoptions. Lints with **0 errors and 25 warnings**, and the warnings are the interesting part.
 
 ## Next
 

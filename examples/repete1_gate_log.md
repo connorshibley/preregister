@@ -6164,3 +6164,187 @@ list is injected.
 
 **66 trials, zero adopted, zero closed trades.** Infrastructure is not a
 trial; a map is not a measurement.
+
+### §58 addendum — Milestone 2: the methodology is a package now
+
+**Appended 2026-08-22. Claim class: INFRA + METHOD. K unchanged: 66.**
+Nothing measured here; this records where the method went.
+
+`preregister` v0.1.0 — https://github.com/connorshibley/preregister —
+public, Apache-2.0, stdlib-only Python 3.12, 169 tests, 92% coverage.
+Fourteen commits, each green. **This repo was not modified** beyond this
+addendum: thin re-exports are Milestone 3.
+
+What was lifted bit-identically (pinned against values computed in this
+repo's own venv, so the re-exports have a known target): the block-bootstrap
+comparison, the hash-seeded uniform and normal draws — **three copies here,
+one there** — the gate clause shapes, the decay bands, and the snapshot,
+golden, fingerprint and embargo primitives. No threshold moved with them:
+`15 trades`, `PF 1.3`, `MAX_SINGLE_TRADE_SHARE 0.5` are this programme's
+pre-registered numbers and stay in this log, which is now the thing a linter
+can hold to account.
+
+Two pieces exist there that never existed here:
+
+1. **A K ledger.** `compare()` takes a `Registry` and reads K from the
+   record. `spend()` refuses a class that shouldn't spend, refuses zero
+   arms, and refuses a trial that does not say what it was committed
+   BEFORE. `knowledge/gate_verdicts.json` loads into it unchanged.
+2. **A gate-log linter**, whose grammar was fitted to THIS file.
+
+Its first run on this log: **zero errors, 25 warnings, 8 info.** The
+warnings are the useful part, and all of them were already true:
+
+* 16 sections (§12, §21, §23–§36) declare no claim class in any form the
+  grammar can read.
+* §4–§10 spent trials with no K statement anywhere in the section; the
+  count is reconstructible only from §11's "Cumulative K after this run: 48".
+* Five tally lines (§18, §20, §25, §26, §43) are in forms
+  `tests/test_gate_verdicts.py`'s own regex cannot read — that test has been
+  reading four of the tallies this log contains, not all of them.
+* §54 declares `ENABLEMENT`, which has never been one of the classes.
+* §22 was numbered and never written.
+* §58 self-reports its own transcription-after-the-smoke-run deviation, and
+  the linter surfaces it as info rather than letting it pass silently.
+
+None of that is a new defect and none of it is corrected here — the log is
+append-only. It is the measurement of how much of this discipline was prose,
+which is the thing Milestone 1 said the package existed to fix. The findings
+are pinned in the package's CI as a ratchet: they can only be removed by
+improving the linter, never by editing this file.
+
+Written while building the toy example, and worth more than the example: its
+negative control was wrong on the first run and came back **SIGNIFICANT** on
+a pipeline containing no treatment at all, because the control changed the
+DATA as well as the labels. A control that fires on a broken instrument is
+the control working. Recorded in that example's own log rather than fixed
+quietly.
+
+**66 trials, zero adopted, zero closed trades.** Packaging a method is not a
+trial.
+
+### §58 addendum — Milestone 3: the trial count becomes a checked number
+
+**Appended 2026-08-23. Claim class: INFRA + METHOD. K unchanged: 66.**
+Nothing measured; no number moved (golden byte-identical, 1,854 tests green).
+
+repete1 now consumes `preregister` instead of carrying its own copy of the
+statistics. `src/significance.py` and `src/decay_stats.py` are thin faces
+over the package; what stayed behind is everything that knows what a trade
+is. The extracted `compare()` was diffed against the original before this
+was believed — see the defect below.
+
+**`gate_ablation.py` reads K from the record**, inside `main()`, never at
+import. Ten historical scripts keep their literal, because a script's
+`TRIALS` is the record of what K was when that gate ran and editing it would
+rewrite a pre-registration. Four more keep `len(arms)`, which is a
+within-run family correction and a different statistic from the cumulative
+count; converting those would have turned K=3 into K=66 in
+`gate_cross_asset.py` while looking like a tidy-up.
+
+**The fifteen numbers are now checked** —
+`tests/test_trials_literals_match_the_log.py` parses this log with
+`preregister.gatelog` and compares. All ten historical literals agree with
+the K this log declares at their section. §8, §9 and §10 declare no K here
+at all, so their scripts are the only record; the chain they imply is
+41 → 42 → 45, and §11's three declared arms land it on the 48 this log
+states. Two independent records meeting is the strongest evidence available
+for a stretch the log left silent, and it is evidence rather than proof.
+
+That reconciliation surfaced one error, in prose not code:
+`regate_meanrev.py` said "24 variants" in three places while its grid
+computes 36, making its K 41 rather than 29. The printed output was always
+self-consistent; only the docstring lied, and nothing checked it for two
+months. Corrected in place with the reason.
+
+**CI now lints this log** (`python -m preregister.gatelog`, blocking on
+errors): 0 errors, 26 warnings, 8 info. `tests/test_gate_verdicts.py` gained
+three checks — that the linter and the long-standing regex agree on the
+final count, that the log has no errors, and a ratchet on how many tally
+lines are in the readable form.
+
+**Two defects found by doing this, both worth more than the migration.**
+
+*The extraction had silently weakened two audit gates.* A thin re-export
+leaves an AST scanner reading a file with nothing in it. Gate 1 —
+"nothing on the simulation path can import a model", closed structurally on
+2026-08-22 — would have gone on passing while covering nothing, and
+`tests/test_decay_monitor_is_read_only.py` with it. The Milestone 1 map
+asserted the opposite ("fails loudly on the move"); that claim is corrected
+by appended note in `docs/methodology_extraction_map.md`, not edited away.
+Both scanners now resolve installed packages and follow one hop out of
+`src/`, and both have a negative control that plants a decoy re-export and
+proves the scanner fires through it.
+
+*The extracted `describe()` had dropped each arm's sample size.* Every
+number was bit-identical; the printed verdict was not. "INCONCLUSIVE at
+n=12" and "INCONCLUSIVE at n=1200" are different statements, and a reader
+who cannot see which one this is cannot weigh it. Found by diffing the
+extracted output against the original instead of trusting that a lift was
+faithful — the same discipline as a golden file, applied to a refactor that
+had no golden. Fixed in the package (0.1.3).
+
+Also fixed: the lock recorded that it was compiled against
+`--constraint=/tmp/prod-constraints.txt`, a path that no longer existed, so
+`requirements.lock` was not reproducible from the repo. Production's exact
+versions are now committed as `deploy/prod-constraints.txt`, and the
+regeneration command documented in `requirements.txt` and `ci.yml` is the
+one that was actually used rather than a shorter one that drifts `ccxt`.
+
+**66 trials, zero adopted, zero closed trades.** Making a number checkable
+is not a trial.
+
+### §58 addendum — an operational-detail correction, and the audit protocol recovered
+
+**Appended 2026-08-23. Claim class: INFRA + METHOD. K unchanged: 66.**
+Correcting what this log discloses, not what it measured. No number moves.
+
+#### The disclosure
+
+This log is public. Two passages describe more about the production
+environment than any methodological point requires:
+
+* §40 (line 4806) names where the always-on host physically sits — a third
+  party's premises — and the remote-access product used to reach it.
+* §58's addendum (line 6051) names the monitoring vendor, both check
+  identifiers and their grace windows.
+
+**Neither is edited.** The log is append-only and history is hashed; editing
+it to tidy an old disclosure would be the §24 sin for a cosmetic reason, and
+the correction is the part a future reader needs.
+
+Standing rule from today: **the production host's location, its owner, and
+the remote-access method are deliberately not described in this log.** The
+same applies to monitoring identifiers and grace windows. Where a section
+needs to refer to the host it says "the production host" and nothing more.
+The premises belong to someone who did not choose to publish them, which is
+the actual reason — the security argument is secondary and weaker.
+
+#### The audit protocol, recovered
+
+The adversarial protocol that produced this project's **PROOF OF CONCEPT**
+verdict on 2026-08-21 was pasted as a prompt and written to a scratch plan
+file. That file was later overwritten. For two days the only surviving copy
+was a session transcript.
+
+It is now at `docs/audit-protocol-verbatim.md` in the `preregister`
+repository, reproduced unedited alongside the verdict it returned —
+including the findings unflattering to this bot. A generalised form, a
+trading-specific pack, a methodology guide and a quickstart sit beside it.
+
+Two things that recovery surfaced, both recorded rather than quietly fixed:
+
+* The protocol referenced **Diagnostics A, B, C and G** as binding on three
+  of its gates and **never defined them.** The definitions now published are
+  marked as additions, not recoveries — a reader can tell which parts were
+  run and which were written afterwards.
+* The verdict's own summary of this project has been preserved verbatim,
+  including *"the integrity is the product; the trading performance is not a
+  product at all yet."*
+
+The lesson is the same one §56 taught about ledgers, applied to documents: a
+record that exists in exactly one place, in a format nobody can query, is not
+a record. **A transcript is not a storage medium.**
+
+**66 trials, zero adopted, zero closed trades.** Recovering a document is not
+a trial.

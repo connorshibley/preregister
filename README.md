@@ -74,9 +74,9 @@ python -m preregister.gatelog examples/repete1_gate_log.md \
   --registry examples/repete1_gate_verdicts.json
 ```
 
-**Zero errors, 25 warnings, 8 info** on the vendored snapshot (the live log,
-which has grown since, reports 26 warnings) — and the warnings are the
-interesting part. Sixteen early sections predate the claim-class convention. Five tally
+**Zero errors, 25 warnings, 8 info** — and the warnings are the interesting
+part. (Without `--lock` it reports 26: the extra warning is the linter
+noting that history is unverified, which is the lock's whole job.) Sixteen early sections predate the claim-class convention. Five tally
 lines are in a form the bot's own consumer regex cannot read. `§54` uses a
 class word (`ENABLEMENT`) that was never in the enum. `§22` was numbered and
 never written. `§58` self-reports that its spec was transcribed after the
