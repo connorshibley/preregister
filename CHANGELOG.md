@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — 2026-08-23
+
+Publishing only; no code change. Adds Trusted Publishing (OIDC) so releases
+carry no API token, and a step that refuses to publish when the tag and the
+built version disagree.
+
 ## 0.1.0 — 2026-08-22
 
 First extraction from `connorshibley/repete1-bot`.

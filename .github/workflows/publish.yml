@@ -1,0 +1,40 @@
+name: Publish
+
+# Trusted Publishing (OIDC). There is no API token anywhere — not in a
+# secret, not on a laptop, not in this file. PyPI verifies the workflow's
+# identity directly, so the credential that could leak does not exist.
+#
+# One-time setup on PyPI: add a trusted publisher for project `preregister`
+# with owner `connorshibley`, repo `preregister`, workflow `publish.yml`,
+# environment `pypi`.
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: pypi
+    permissions:
+      id-token: write        # the OIDC token; nothing else is granted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build
+        run: |
+          pip install build
+          python -m build
+      - name: The tag and the package version must agree
+        # A tag that says v0.1.1 over a wheel that says 0.1.0 publishes a
+        # version nobody asked for and cannot be taken back — PyPI does not
+        # allow re-uploading a filename.
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          built=$(ls dist/*.whl | sed -E 's/.*preregister-([^-]+)-.*/\1/')
+          echo "tag=$tag built=$built"
+          test "$tag" = "$built"
+      - uses: pypa/gh-action-pypi-publish@release/v1
