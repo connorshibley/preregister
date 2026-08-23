@@ -1,0 +1,35 @@
+{
+  "ledger": [
+    {
+      "arms": 2,
+      "cls": "EDGE",
+      "committed_before": "the assignment salt is drawn",
+      "k_after": 2,
+      "k_before": 0,
+      "note": "",
+      "section": "\u00a71"
+    },
+    {
+      "arms": 1,
+      "cls": "CAPACITY",
+      "committed_before": "the wider cohort is drawn",
+      "k_after": 3,
+      "k_before": 2,
+      "note": "",
+      "section": "\u00a72"
+    },
+    {
+      "arms": 0,
+      "cls": "CONTROL",
+      "committed_before": null,
+      "k_after": 3,
+      "k_before": 3,
+      "note": "relabel ladder over five fixed salts",
+      "section": "\u00a73"
+    }
+  ],
+  "schema": "preregister.registry/1",
+  "strategies_adopted": 0,
+  "trials_registered": 3,
+  "updated": "2026-01-01"
+}
