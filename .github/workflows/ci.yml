@@ -43,7 +43,22 @@ jobs:
         run: mypy --strict src/preregister
       - name: Tests
         # Coverage floor is set from a MEASURED number and may only move up.
-        run: pytest --cov=preregister --cov-report=term-missing --cov-fail-under=0
+        # Floor set from a MEASURED 92% at v0.1.0 and may only move UP. An
+        # invented target is the thing this repo exists to refuse.
+        run: pytest --cov=preregister --cov-report=term-missing --cov-fail-under=90
+      - name: The toy example lints clean and finds nothing
+        run: |
+          python -m preregister.gatelog examples/recsys_ab/gate_log.md --strict --lock examples/recsys_ab/gate_log.lock.json
+          python examples/recsys_ab/run.py
+      - name: The vendored log still lints with zero errors
+        # A ratchet. The findings file pins every warning and info; to change
+        # it, re-run the CLI and commit the diff WITH the reason. The log
+        # itself is append-only and is never edited to make this pass.
+        run: |
+          python -m preregister.gatelog examples/repete1_gate_log.md \
+            --lock examples/repete1_gate_log.lock.json \
+            --registry examples/repete1_gate_verdicts.json --json > /tmp/findings.json
+          diff /tmp/findings.json examples/repete1_gate_log.findings.json
       - name: The wheel installs and imports outside the repo
         # The zero-coupling proof: a clean interpreter, no src/ on the path.
         run: |
